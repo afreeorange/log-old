@@ -1,0 +1,40 @@
+#!bin/python
+
+import daemon
+from lockfile.pidlockfile import PIDLockFile
+import os
+import sys
+import logging
+
+from tornado.wsgi import WSGIContainer
+from tornado.httpserver import HTTPServer
+from tornado.ioloop import IOLoop
+from tornado.options import parse_command_line
+
+from listlog import app
+
+HOST="0.0.0.0"
+PORT=8005
+
+# Run flask, gunicorn, or tornado depending on options
+# Default is gunicorn
+if len(sys.argv) == 2:
+    
+    if sys.argv[1] == "flask":
+        from listlog import app
+        app.run(host = HOST, debug = True, port = PORT)
+
+    elif sys.argv[1] == "tornado":
+        project_directory = os.getcwd()
+        access_log = open(project_directory + '/logs/access_log', 'a+')
+        error_log  = open(project_directory + '/logs/error_log', 'a+')
+        ctx = daemon.DaemonContext(stdout=access_log, stderr=error_log, working_directory='.', pidfile=PIDLockFile("daemon.pid"))
+        ctx.open()
+
+        http_server = HTTPServer(WSGIContainer(app))
+        http_server.listen(PORT)
+        parse_command_line()
+        IOLoop.instance().start()
+
+else:
+    os.system("gunicorn -w 3 -b 0.0.0.0:" + str(PORT) + " web:app --daemon --access-logfile ./logs/access_log --error-log ./logs/error_log --debug --pid ./daemon.pid")
