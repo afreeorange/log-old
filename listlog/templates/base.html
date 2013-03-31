@@ -8,18 +8,39 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="A list of stuff I read or see every day">
         <meta name="viewport" content="width=device-width">
-        <title>Things I've Seen</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}">
+        <title>Things I've Seen{% if self.title() %} &ndash; {% block title -%}{% endblock %}{% endif %}</title>
         <script src="{{ url_for('static', filename='js/modernizr.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}">
+        {% if self.styles() %}
+        <style type="text/css">
+            {% block styles %}{% endblock %}
+        </style>
+        {% endif %}
     </head>
     <body>
         <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade it for a better web experience</a>.</p>
         <![endif]-->
+
+        {# Display any flashed messages #}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }} </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
 
         {% block content %}{% endblock %}
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>')</script>
+        {% if self.javascript() %}
+        <script type="text/javascript">
+            {% block javascript %}{% endblock %}
+        </script>
+        {% endif %}
     </body>
 </html>
