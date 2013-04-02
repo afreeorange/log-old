@@ -22,6 +22,8 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade it for a better web experience</a>.</p>
         <![endif]-->
 
+        <h1><a href="/">ListLog</a></h1>
+
         {# Display any flashed messages #}
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -34,6 +36,12 @@
         {% endwith %}
 
         {% block content %}{% endblock %}
+
+        <h6>&copy; {{ config.CURRENT_YEAR }}
+            {% if self.footer() %}
+                {% block footer %}{% endblock %}
+            {% endif %}
+        </h6>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>')</script>

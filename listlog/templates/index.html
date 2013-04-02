@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="right"><a href="/post">New Post</a></div>
     {% for item in items %}
-        {{ item.title }}
+        <h2>{{ item.title }}</h2>
+        <em>{{ item.posted|relative_date }}</em><br />
+        <p>{{ item.content }}</p>
+        <p><small>{{ item.filed_under|expand_post_type }}</small></p>
+    {% else %}
+        Nothing here&hellip;
     {% endfor %}
 {% endblock %}

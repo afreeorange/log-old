@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{# Documentation:
+    http://pythonhosted.org/Flask-WTF/
+#}
+{% block content %}
+    <h2>Post</h2>
+    <form action="/post" method="post">
+        {{ form.csrf_token }}
+        {{ form.title.label }} {{ form.title(size=20) }}
+        {{ form.content.label }} {{ form.content }}
+        {{ form.posted.label }} {{ form.posted }}
+        {{ form.filed_under.label }} {{ form.filed_under }}
+        <input type="submit" value="Post" />
+    </form>
+{% endblock %}
