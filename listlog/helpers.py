@@ -76,3 +76,4 @@ def enforce_integer(the_number):
             return 1
         else:
             return the_number
+

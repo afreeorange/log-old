@@ -10,7 +10,9 @@
         <meta name="viewport" content="width=device-width">
         <title>Things I've Seen{% if self.title() %} &ndash; {% block title -%}{% endblock %}{% endif %}</title>
         <script src="{{ url_for('static', filename='js/modernizr.min.js') }}"></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}">
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}"> -->
+        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
         {% if self.styles() %}
         <style type="text/css">
             {% block styles %}{% endblock %}
@@ -23,6 +25,8 @@
         <![endif]-->
 
         <h1><a href="/">ListLog</a></h1>
+
+        <div id="scroll-up"><a href="#">Up</a></div>
 
         {# Display any flashed messages #}
         {% with messages = get_flashed_messages() %}
@@ -45,10 +49,18 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>')</script>
-        {% if self.javascript() %}
+        <script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.smooth-scroll.min.js') }}"></script>
         <script type="text/javascript">
-            {% block javascript %}{% endblock %}
+        // Show the "up" arrow when the user scrolls 300px from the top
+        $(window).scroll(function () {
+            $("#scroll-up").offset().top > 300 ? $("#scroll-up").fadeIn() : $("#scroll-up").fadeOut();
+        });
+        $(document).ready(function() {
+            // Make the scroll experince a smooth one...
+            $('#scroll-up a').smoothScroll({scrollTarget: document.body});
+        });
+        {% block javascript %}{% endblock %}
         </script>
-        {% endif %}
     </body>
 </html>

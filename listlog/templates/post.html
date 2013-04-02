@@ -10,7 +10,7 @@
         {{ form.title.label }} {{ form.title(size=20) }}
         {{ form.content.label }} {{ form.content }}
         {{ form.posted.label }} {{ form.posted }}
-        {{ form.filed_under.label }} {{ form.filed_under }}
-        <input type="submit" value="Post" />
+        {{ form.post_type.label }} {{ form.post_type }}
+        <button type="submit">Post</button>
     </form>
 {% endblock %}

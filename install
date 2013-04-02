@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ -x $(which virtualenv) ]; then 
+    echo -e "! Check if virtualenv is installed";
+    exit 1
+fi
+
+virtualenv .
+source ./bin/activate
+pip install -r REQUIREMENTS
+
+cat << LIBRARY_MESSAGE
+
+If you had any errors about lxml, do this on Ubuntu:
+
+  sudo apt-get install libxml2-dev libxslt-dev
+
+And this on an RHEL-based box:
+
+  sudo yum install libxml2-devel libxslt-devel
+
+LIBRARY_MESSAGE

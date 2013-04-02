@@ -6,8 +6,9 @@
         <h2>{{ item.title }}</h2>
         <em>{{ item.posted|relative_date }}</em><br />
         <p>{{ item.content }}</p>
-        <p><small>{{ item.filed_under|expand_post_type }}</small></p>
+        <p><small>{{ item.post_type|expand_post_type }}</small></p>
     {% else %}
         Nothing here&hellip;
     {% endfor %}
+    {{ lipsum(n=20, html=True, min=20, max=100) }}
 {% endblock %}

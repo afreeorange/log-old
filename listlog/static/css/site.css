@@ -1,0 +1,10 @@
+#scroll-up {
+background:#CCC;
+border:1px solid #CCC;
+display:none;
+padding:10px;
+position:fixed;
+right:20px;
+top:20px;
+}
+

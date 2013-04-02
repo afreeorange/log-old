@@ -11,11 +11,14 @@ class Item(Document):
     title = StringField(required=False)
     content = StringField(required=True)
     posted = DateTimeField(required=True, default=datetime.now())
-    filed_under = StringField(required=True, choices=post_types,
+    post_type = StringField(required=True, choices=post_types,
                               default='misc')
     meta = {
-        'indexes': ['-posted', 'title'],
-        'ordering': ['-posted']
+        'indexes': ['+posted', 'title'],
+        'ordering': ['+posted']
     }
 
+
+# Create a form object out of the MongoEngine class definition. Very convenient.
 ItemForm = model_form(Item)
+
