@@ -31,11 +31,9 @@
         {# Display any flashed messages #}
         {% with messages = get_flashed_messages() %}
             {% if messages %}
-            <ul>
             {% for message in messages %}
-                <li>{{ message }} </li>
+                <div class="alert">{{ message }} </div>
             {% endfor %}
-            </ul>
             {% endif %}
         {% endwith %}
 

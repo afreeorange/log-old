@@ -3,12 +3,29 @@
 {% block content %}
     <div class="right"><a href="/post">New Post</a></div>
     {% for item in items %}
+        <hr />
         <h2>{{ item.title }}</h2>
-        <em>{{ item.posted|relative_date }}</em><br />
+        <em>{{ item.posted|relative_date }}</em> <code>{{ item.posted }}</code><br />
         <p>{{ item.content }}</p>
-        <p><small>{{ item.post_type|expand_post_type }}</small></p>
+        <p><small class="label">{{ item.post_type|expand_post_type }}</small></p>
     {% else %}
         Nothing here&hellip;
     {% endfor %}
-    {{ lipsum(n=20, html=True, min=20, max=100) }}
+
+    {% if number_of_pages > 1 %}
+    <div class="pagination">
+        <ul>
+            <li{% if page_number == 1 %} class="disabled"{% endif %}><a href="/page/1">&laquo;</a></li>
+
+            {% for number in range(number_of_pages) %}
+                <li{% if page_number == number + 1 %} class="active"{% endif %}><a href="/page/{{ number + 1 }}">{{ number + 1 }}</a></li>
+            {% endfor %}
+
+            <li{% if page_number == number_of_pages %} class="disabled"{% endif %}><a href="/page/{{ number_of_pages }}">&raquo;</a></li>
+        </ul>
+    </div>
+    {% endif %}
+
+
 {% endblock %}
+

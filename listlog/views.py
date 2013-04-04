@@ -1,4 +1,5 @@
 import os
+from math import ceil
 
 from flask import Flask, render_template, send_from_directory, flash, request, redirect
 from listlog import app, db
@@ -17,8 +18,7 @@ def form_post():
         form.save()
         flash('Saved "' + request.form['title'] + '"')
         return redirect("/")
-    test = Item(content="bleh")
-    return render_template("post.html", form=form)
+    return render_template("forms/post.html", form=form)
 
 
 @app.route('/page/<page_number>')
@@ -27,19 +27,23 @@ def form_post():
 @app.route('/index')
 def index(page_number=1):
     """ Display a paginated home page of items, ordered by posting date.
+        Implement this when you understand it fully:
+        http://flask.pocoo.org/snippets/44/
     """
     # Clean up the page number. I found out that Python's 'pass-by-object'
     # when writing this simple method and my head's a little... shaken.
     page_number = enforce_integer(page_number)
 
     # Quick calculations for pagination
+    number_of_items = Item.objects().count()
+    number_of_pages = int(ceil(number_of_items / float(items_per_page)))
     start = (page_number - 1) * items_per_page
     end = start + items_per_page
 
     # Use array splicing (docs-recommended over start() and limit())
     # to paginate results
     return render_template("index.html",
-                           items=Item.objects[start:end].order_by('-posted'))
+                           items=Item.objects[start:end].order_by('-posted'), **locals())
 
 
 @app.route('/favicon.ico')
