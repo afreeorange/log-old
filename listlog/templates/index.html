@@ -5,7 +5,7 @@
     {% for item in items %}
         <hr />
         <h2>{{ item.title }}</h2>
-        <em>{{ item.posted|relative_date }}</em> <code>{{ item.posted }}</code><br />
+        <em class="timeago" title="{{ item.posted }}">{{ item.posted|relative_date }}</em> <code>{{ item.posted }}</code><br />
         <p>{{ item.content }}</p>
         <p><small class="label">{{ item.post_type|expand_post_type }}</small></p>
     {% else %}
@@ -29,3 +29,16 @@
 
 {% endblock %}
 
+{% block javascript %}
+// Show the "up" arrow when the user scrolls 300px from the top
+$(window).scroll(function () {
+    $("#scroll-up").offset().top > 300 ? $("#scroll-up").fadeIn() : $("#scroll-up").fadeOut();
+});
+$(document).ready(function() {
+    // Make the scroll experince a smooth one...
+    $('#scroll-up a').smoothScroll({scrollTarget: document.body});
+
+    // Automagically update the timestamp
+    $('.timeago').timeago();
+});
+{% endblock %}

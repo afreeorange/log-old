@@ -13,10 +13,10 @@ items_per_page = app.config['ITEMS_PER_PAGE']
 def form_post():
     """ Show the form to post items. Perhaps the only form on the site...
     """
-    form = ItemForm()
+    form = ItemForm(request.form)
     if request.method == 'POST':
-        form.save()
-        flash('Saved "' + request.form['title'] + '"')
+        #form.save()
+        flash('Saved item')
         return redirect("/")
     return render_template("forms/post.html", form=form)
 

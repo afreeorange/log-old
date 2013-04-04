@@ -49,15 +49,8 @@
         <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>')</script>
         <script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/jquery.smooth-scroll.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.timeago.min.js') }}"></script>
         <script type="text/javascript">
-        // Show the "up" arrow when the user scrolls 300px from the top
-        $(window).scroll(function () {
-            $("#scroll-up").offset().top > 300 ? $("#scroll-up").fadeIn() : $("#scroll-up").fadeOut();
-        });
-        $(document).ready(function() {
-            // Make the scroll experince a smooth one...
-            $('#scroll-up a').smoothScroll({scrollTarget: document.body});
-        });
         {% block javascript %}{% endblock %}
         </script>
     </body>
