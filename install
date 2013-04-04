@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -x $(which virtualenv) ]; then 
+if [ ! -x $(which virtualenv) ]; then 
     echo -e "! Check if virtualenv is installed";
     exit 1
 fi
