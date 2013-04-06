@@ -27,6 +27,12 @@ class Item(Document):
         'ordering': ['-posted']
     }
 
+    # 'Magic method' to tell class how to print itself. Nice for debugging!
+    # Sublime difference between __str__ and __repr__
+    # http://satyajit.ranjeev.in/2012/03/14/python-repr-str.html
+    def __str__(self):
+        return '%s - (%s) (Titled "%s") - %s...' % (self.posted, self.post_type, self.title, self.content[:30])
+
 
 # Create a form object out of the MongoEngine class definition. Very convenient.
 ItemForm = model_form(Item)

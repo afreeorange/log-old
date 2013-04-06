@@ -24,12 +24,13 @@ def form_post():
                     tags=ast.literal_eval(request.form['tags']),
                     posted=datetime.now())
         item.save()
+        print str(item)
         flash('Saved item')
         return redirect("/")
     return render_template("forms/post.html", form=form)
 
 
-@app.route('/page/<page_number>')
+@app.route('/page/<int:page_number>')
 @app.route('/page')
 @app.route('/')
 @app.route('/index')

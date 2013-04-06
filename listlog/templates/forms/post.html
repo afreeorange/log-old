@@ -13,6 +13,7 @@
         {{ form.csrf_token }}
         {{ form.title.label }} {{ form.title }}
         {{ form.content.label }} {{ form.content }}
+        <textarea name="tags" id="tags" rows="1"></textarea>
 
         <table class="table">
         {% for subfield in form.post_type %}
@@ -23,7 +24,6 @@
         {% endfor %}
         </table>
 
-        <textarea name="tags" id="tags" rows="1"></textarea>
         <button type="submit" class="btn">Post</button>
     </form>
 {% endblock %}
