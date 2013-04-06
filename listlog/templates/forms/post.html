@@ -4,13 +4,35 @@
     http://pythonhosted.org/Flask-WTF/
 #}
 {% block content %}
+    {% if form.errors %}
+        <div class="alert alert-error">You're missing a few required fields...</div>
+    {% endif %}
+
     <h2>Post</h2>
     <form action="/post" method="post">
         {{ form.csrf_token }}
-        {{ form.title.label }} {{ form.title(size=20) }}
+        {{ form.title.label }} {{ form.title }}
         {{ form.content.label }} {{ form.content }}
-        {{ form.posted.label }} {{ form.posted }}
-        {{ form.post_type }}
-        <button type="submit">Post</button>
+
+        <table class="table">
+        {% for subfield in form.post_type %}
+            <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <textarea name="tags" id="tags" rows="1"></textarea>
+        <button type="submit" class="btn">Post</button>
     </form>
+{% endblock %}
+
+{% block javascript %}
+$(document).ready(function() {
+    $('#tags').textext({
+        plugins : 'tags prompt focus autocomplete ajax arrow',
+        prompt : 'tags'
+    });
+});
 {% endblock %}

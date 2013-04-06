@@ -1,17 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="right"><a href="/post">New Post</a></div>
+
+    <div class="pull-right"><a href="/post" class="btn">New Post</a></div>
     {% for item in items %}
         <hr />
         <h2>{{ item.title }}</h2>
         <em class="timeago" title="{{ item.posted }}">{{ item.posted|relative_date }}</em> <code>{{ item.posted }}</code><br />
-        <p>{{ item.content }}</p>
-        <p><small class="label">{{ item.post_type|expand_post_type }}</small></p>
+        <p>{{ item.content|markdown }}</p>
+        <p>
+            <small class="label label-inverse">{{ item.post_type|expand_post_type }}</small>
+            {% if item.tags is defined %}
+                {% for tag in item.tags %}
+                    <small class="label">{{ tag }}</small>
+                {% endfor %}
+            {% endif %}
+        </p>
     {% else %}
         Nothing here&hellip;
     {% endfor %}
 
+    {# Pagination #}
     {% if number_of_pages > 1 %}
     <div class="pagination">
         <ul>
@@ -25,7 +34,6 @@
         </ul>
     </div>
     {% endif %}
-
 
 {% endblock %}
 

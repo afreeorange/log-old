@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import Flask
 from jinja2 import Environment
 from flask.ext.mongoengine import MongoEngine
+from flaskext.markdown import Markdown
 
 app = Flask(__name__)
 app.config.from_object('settings')
@@ -10,6 +11,7 @@ app.config['CSRF_ENABLED'] = True
 app.config['CURRENT_YEAR'] = datetime.now().strftime("%Y")
 
 db = MongoEngine(app)
+markdown = Markdown(app)
 
 from listlog import views, models, helpers
 

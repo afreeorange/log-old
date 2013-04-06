@@ -10,8 +10,8 @@
         <meta name="viewport" content="width=device-width">
         <title>Things I've Seen{% if self.title() %} &ndash; {% block title -%}{% endblock %}{% endif %}</title>
         <script src="{{ url_for('static', filename='js/modernizr.min.js') }}"></script>
-        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}"> -->
-        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-responsive.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
         {% if self.styles() %}
         <style type="text/css">
@@ -19,21 +19,21 @@
         </style>
         {% endif %}
     </head>
-    <body>
+    <body class="container">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade it for a better web experience</a>.</p>
         <![endif]-->
 
         <h1><a href="/">ListLog</a></h1>
 
-        <div id="scroll-up"><a href="#">Up</a></div>
+        <div id="scroll-up"><a class="btn" href="#">Up</a></div>
 
         {# Display any flashed messages #}
         {% with messages = get_flashed_messages() %}
             {% if messages %}
-            {% for message in messages %}
-                <div class="alert">{{ message }} </div>
-            {% endfor %}
+                {% for message in messages %}
+                    <div class="alert">{{ message }} </div>
+                {% endfor %}
             {% endif %}
         {% endwith %}
 
@@ -50,6 +50,7 @@
         <script src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/jquery.smooth-scroll.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/jquery.timeago.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.textext.min.js') }}"></script>
         <script type="text/javascript">
         {% block javascript %}{% endblock %}
         </script>

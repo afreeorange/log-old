@@ -1,9 +1,11 @@
 import os
+import ast
 from math import ceil
+from datetime import datetime
 
 from flask import Flask, render_template, send_from_directory, flash, request, redirect
 from listlog import app, db
-from models import Item, ItemForm
+from models import Item, ItemForm, NewItemForm
 from helpers import *
 
 items_per_page = app.config['ITEMS_PER_PAGE']
@@ -13,9 +15,15 @@ items_per_page = app.config['ITEMS_PER_PAGE']
 def form_post():
     """ Show the form to post items. Perhaps the only form on the site...
     """
-    form = ItemForm(request.form)
-    if request.method == 'POST':
-        #form.save()
+    form = NewItemForm()
+    if request.method == 'POST' and form.validate():
+        print request.form['tags']
+        item = Item(title=request.form['title'],
+                    content=request.form['content'],
+                    post_type=request.form['post_type'],
+                    tags=ast.literal_eval(request.form['tags']),
+                    posted=datetime.now())
+        item.save()
         flash('Saved item')
         return redirect("/")
     return render_template("forms/post.html", form=form)

@@ -9,6 +9,8 @@ from flask.ext.mongoengine.wtf import model_form
 #from flask.ext.wtf import Form
 #from wtforms.ext.appengine.db import model_form
 
+from flask.ext.wtf import Form
+import wtforms
 
 post_types = app.config['POST_TYPES']
 
@@ -29,3 +31,8 @@ class Item(Document):
 # Create a form object out of the MongoEngine class definition. Very convenient.
 ItemForm = model_form(Item)
 
+
+class NewItemForm(Form):
+    title = wtforms.TextField('Item Title', [wtforms.validators.length(max=255)])
+    content = wtforms.TextAreaField('Content', [wtforms.validators.Required()])
+    post_type = wtforms.RadioField('Type', choices=post_types, default="misc") 
