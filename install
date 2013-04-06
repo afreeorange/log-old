@@ -1,11 +1,20 @@
 #!/bin/bash
 
+# Halt if virtualenv is not installed
 if [ ! -x $(which virtualenv) ]; then 
     echo -e "! Check if virtualenv is installed";
     exit 1
 fi
 
+# Create a nice virtual environment
 virtualenv .
+
+# Install pip
+if [ ! -x $(which pip) ]; then 
+    easy_install pip
+fi
+
+# Initialize environment and install required modules
 source ./bin/activate
 pip install -r requirements.txt
 
