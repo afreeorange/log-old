@@ -3,6 +3,8 @@
 {% block content %}
 
     <div class="pull-right"><a href="/post" class="btn">New Post</a></div>
+    <div class="pull-right"><a href="/login" class="btn">Log in</a></div>
+    <div class="pull-right"><a href="/logout" class="btn">Log out</a></div>
     {% for item in items %}
         <hr />
         <h2>{{ item.title }}</h2>
@@ -12,7 +14,7 @@
             <small class="label label-inverse">{{ item.post_type|expand_post_type }}</small>
             {% if item.tags is defined %}
                 {% for tag in item.tags %}
-                    <small class="label">{{ tag }}</small>
+                    <small class="label">#{{ tag }}</small>
                 {% endfor %}
             {% endif %}
         </p>

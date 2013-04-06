@@ -42,3 +42,26 @@ class NewItemForm(Form):
     title = wtforms.TextField('Item Title', [wtforms.validators.length(max=255)])
     content = wtforms.TextAreaField('Content', [wtforms.validators.Required()])
     post_type = wtforms.RadioField('Type', choices=post_types, default="misc") 
+
+class LoginForm(Form):
+    username = wtforms.TextField('Username', [wtforms.validators.Required()])
+    password = wtforms.PasswordField('Password', [wtforms.validators.Required()])
+    remember = wtforms.BooleanField('Forget you not?', default=False)
+
+# http://pythonhosted.org/Flask-Login/#your-user-class
+# Can inherit the 'UserMixin' class as well...
+class User():
+    def __init__(self, id):
+        self.id = id
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id

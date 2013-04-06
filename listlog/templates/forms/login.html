@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+	<h2>Login</h2>
+
+    {% if form.errors %}
+        <div class="alert alert-error">You're missing a few required fields&hellip;</div>
+    {% endif %}
+
+    <form action="/login" method="post">
+        {{ form.csrf_token }}
+        {{ form.username.label }} {{ form.username }}
+        {{ form.password.label }} {{ form.password }}
+        {{ form.remember.label }} {{ form.remember }}
+        <br />
+        <button type="submit" class="btn">Log in</button>
+    </form>
+
+{% endblock %}

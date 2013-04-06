@@ -7,24 +7,24 @@ from flask import Flask, render_template, send_from_directory, flash, request, r
 from listlog import app, db
 from models import Item, ItemForm, NewItemForm
 from helpers import *
+from flask.ext.login import login_required, current_user
 
 items_per_page = app.config['ITEMS_PER_PAGE']
 
 
 @app.route('/post', methods=['GET', 'POST'])
+@login_required
 def form_post():
     """ Show the form to post items. Perhaps the only form on the site...
     """
     form = NewItemForm()
     if request.method == 'POST' and form.validate():
-        print request.form['tags']
         item = Item(title=request.form['title'],
                     content=request.form['content'],
                     post_type=request.form['post_type'],
                     tags=ast.literal_eval(request.form['tags']),
                     posted=datetime.now())
         item.save()
-        print str(item)
         flash('Saved item')
         return redirect("/")
     return render_template("forms/post.html", form=form)
