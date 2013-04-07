@@ -3,7 +3,7 @@ import ast
 from math import ceil
 from datetime import datetime
 
-from flask import Flask, render_template, send_from_directory, flash, request, redirect
+from flask import Flask, render_template, send_from_directory, flash, request, redirect, url_for
 from listlog import app, db
 from models import Item, ItemForm, NewItemForm
 from helpers import *
@@ -12,11 +12,24 @@ from flask.ext.login import login_required, current_user
 items_per_page = app.config['ITEMS_PER_PAGE']
 
 
+@app.route('/tag/<tagname>')
+@app.route('/tags/<tagname>')
+def search_by_tags(tagname=None):
+    tag_list = tagname.strip().split("+")
+    return render_template("index.html", items=Item.objects(tags__in = tag_list))
+
+
 @app.route('/post', methods=['GET', 'POST'])
-@login_required
 def form_post():
     """ Show the form to post items. Perhaps the only form on the site...
     """
+
+    # Can use the @login_required decorator as well
+    # http://pythonhosted.org/Flask-Login/#protecting-views
+    if not current_user.is_authenticated():
+        flash("I'm sorry Jane, I cannot let you do that. Want to log in?")
+        return redirect(url_for("index"))
+
     form = NewItemForm()
     if request.method == 'POST' and form.validate():
         item = Item(title=request.form['title'],
@@ -26,7 +39,7 @@ def form_post():
                     posted=datetime.now())
         item.save()
         flash('Saved item')
-        return redirect("/")
+        return redirect(url_for("index")) # There's a reason why this is used instead of "/"
     return render_template("forms/post.html", form=form)
 
 

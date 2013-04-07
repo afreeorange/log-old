@@ -14,7 +14,7 @@ import wtforms
 
 post_types = app.config['POST_TYPES']
 
-
+# http://docs.mongodb.org/manual/core/indexes/#multikey-indexes
 class Item(Document):
     title = StringField(required=False, max_length=255)
     content = StringField(required=True)
@@ -23,7 +23,7 @@ class Item(Document):
                               default='misc')
     tags = ListField(StringField(max_length=30))
     meta = {
-        'indexes': ['-posted', 'title'],
+        'indexes': ['-posted', 'title', 'tags'],
         'ordering': ['-posted']
     }
 
@@ -42,6 +42,7 @@ class NewItemForm(Form):
     title = wtforms.TextField('Item Title', [wtforms.validators.length(max=255)])
     content = wtforms.TextAreaField('Content', [wtforms.validators.Required()])
     post_type = wtforms.RadioField('Type', choices=post_types, default="misc") 
+
 
 class LoginForm(Form):
     username = wtforms.TextField('Username', [wtforms.validators.Required()])

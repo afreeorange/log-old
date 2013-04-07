@@ -14,7 +14,7 @@
             <small class="label label-inverse">{{ item.post_type|expand_post_type }}</small>
             {% if item.tags is defined %}
                 {% for tag in item.tags %}
-                    <small class="label">#{{ tag }}</small>
+                    <a href="/tag/{{ tag }}" class="label">#{{ tag }}</a>
                 {% endfor %}
             {% endif %}
         </p>
@@ -23,7 +23,7 @@
     {% endfor %}
 
     {# Pagination #}
-    {% if number_of_pages > 1 %}
+    {% if number_of_pages and number_of_pages > 1 %}
     <div class="pagination">
         <ul>
             <li{% if page_number == 1 %} class="disabled"{% endif %}><a href="/page/1">&laquo;</a></li>
