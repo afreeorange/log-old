@@ -16,12 +16,16 @@
         <textarea name="tags" id="tags" rows="1"></textarea>
 
         <table class="table">
-        {% for subfield in form.post_type %}
             <tr>
-                <td>{{ subfield }}</td>
+            {% for subfield in form.post_type %}
                 <td>{{ subfield.label }}</td>
+            {% endfor %}
             </tr>
-        {% endfor %}
+            <tr>
+            {% for subfield in form.post_type %}
+                <td>{{ subfield }}</td>
+            {% endfor %}
+            </tr>
         </table>
 
         <button type="submit" class="btn">Post</button>

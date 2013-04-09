@@ -46,11 +46,11 @@ def login():
 
 				user = User(id=username)
 				login_user(user, remember)
-				flash("Hello, %s!" % valid_users[username]['name'])
+				flash("Hello, %s!" % valid_users[username]['name'], 'success')
 				return redirect(url_for("index"))
 
 			else:
-				flash("Bad password dude")
+				flash("Bad password dude", "error")
 
 	return render_template("forms/login.html", form=form)
 

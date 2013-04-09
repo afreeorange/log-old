@@ -8,7 +8,7 @@
     {% for item in items %}
         <hr />
         <h2>{{ item.title }}</h2>
-        <em class="timeago" title="{{ item.posted }}">{{ item.posted|relative_date }}</em> <code>{{ item.posted }}</code><br />
+        <code class="timeago" timestamp="{{ item.posted }}" title="{{ item.posted }}">{{ item.posted|relative_date }}</code><br />
         <p>{{ item.content|markdown }}</p>
         <p>
             <small class="label label-inverse">{{ item.post_type|expand_post_type }}</small>
@@ -50,6 +50,12 @@ $(document).ready(function() {
 
     // Automagically update the timestamp
     $('.timeago').timeago();
+
+    $('.timeago').mouseover(function(){
+        $(this).text($(this).attr("timestamp"));
+    }).mouseout(function(){
+        $(this).timeago();
+    });
 
 });
 {% endblock %}

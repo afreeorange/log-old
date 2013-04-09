@@ -27,7 +27,7 @@ def form_post():
     # Can use the @login_required decorator as well
     # http://pythonhosted.org/Flask-Login/#protecting-views
     if not current_user.is_authenticated():
-        flash("I'm sorry Jane, I cannot let you do that. Want to log in?")
+        flash("I'm sorry Jane, I cannot let you do that. Want to log in?", "error")
         return redirect(url_for("index"))
 
     form = NewItemForm()
@@ -38,7 +38,7 @@ def form_post():
                     tags=ast.literal_eval(request.form['tags']),
                     posted=datetime.now())
         item.save()
-        flash('Saved item')
+        flash('Saved item', 'success')
         return redirect(url_for("index")) # There's a reason why this is used instead of "/"
     return render_template("forms/post.html", form=form)
 

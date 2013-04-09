@@ -7,3 +7,6 @@ top:20px;
 a.label:hover {
 background:#FF3300;
 }
+.timeago {
+cursor:pointer;
+}
