@@ -1,5 +1,5 @@
 DEBUG = True
-MONGODB_SETTINGS = {'DB': "listlog"}
+MONGODB_SETTINGS = {'DB': "listlog", 'PORT': 27017}
 SECRET_KEY = "MOobPQgBMHkIuanurC+NjVq08M+U9f7o"
 POST_TYPES = [('video', 'Video'), 
               ('music', 'Music'), 
@@ -8,6 +8,7 @@ POST_TYPES = [('video', 'Video'),
               ('quote', 'Quote'), 
               ('chat', 'Chat'), 
               ('misc', 'Misc')]
+INFINITE_SCROLL = True
 ITEMS_PER_PAGE = 5
 USERS = {
 	'admin': {

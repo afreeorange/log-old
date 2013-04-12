@@ -38,12 +38,6 @@
 
 {% endblock %}
 
-{% block pagination %}
-
-
-
-{% endblock %}
-
 {% block javascript %}
 // Show the "up" arrow when the user scrolls 300px from the top
 $(window).scroll(function () {
@@ -62,11 +56,13 @@ $(document).ready(function() {
         $(this).timeago();
     });
 
-  $('#content').infinitescroll({
-    debug: true,
+    {% if config.INFINITE_SCROLL %}
+    $('#content').infinitescroll({
+        debug: true,
         navSelector  : "nav.pagination ul li a",
         nextSelector : "nav.pagination ul li.active + li a",
         itemSelector : "div.post",
-  });
+    });
+    {% endif %}
 });
 {% endblock %}
