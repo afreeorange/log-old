@@ -11,6 +11,9 @@ app.config.from_object('settings')
 app.config['CSRF_ENABLED'] = True
 app.config['CURRENT_YEAR'] = datetime.now().strftime("%Y")
 
+# This works well, but messes up Bootstrap
+# app.jinja_env.add_extension('jinja2htmlcompress.HTMLCompress')
+
 db = MongoEngine(app)
 markdown = Markdown(app)
 login_manager = LoginManager()

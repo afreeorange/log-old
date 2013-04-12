@@ -35,7 +35,7 @@ def form_post():
         item = Item(title=request.form['title'],
                     content=request.form['content'],
                     post_type=request.form['post_type'],
-                    tags=ast.literal_eval(request.form['tags']),
+                    tags=request.form['hidden-tags'].split(','),
                     posted=datetime.now())
         item.save()
         flash('Saved item', 'success')

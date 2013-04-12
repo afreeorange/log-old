@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% set active_page = 'post' -%}
 
 {# Documentation:
     http://pythonhosted.org/Flask-WTF/
@@ -11,9 +12,12 @@
     <h2>Post</h2>
     <form action="/post" method="post">
         {{ form.csrf_token }}
-        {{ form.title.label }} {{ form.title }}
-        {{ form.content.label }} {{ form.content }}
-        <textarea name="tags" id="tags" rows="1"></textarea>
+        {{ form.title(placeholder="title", class="input-block-level") }}
+        <br />
+        {{ form.content(placeholder="sup?", class="input-block-level", rows=15) }}
+        <div>
+            <input type="text" name="tags" placeholder="tags" class="tagManager"/>
+        </div>
 
         <table class="table">
             <tr>
@@ -33,10 +37,8 @@
 {% endblock %}
 
 {% block javascript %}
-$(document).ready(function() {
-    $('#tags').textext({
-        plugins : 'tags prompt focus autocomplete ajax arrow',
-        prompt : 'tags'
-    });
+jQuery(".tagManager").tagsManager({
+    preventSubmitOnEnter: false
 });
+jQuery(".datepicker").datepicker();
 {% endblock %}

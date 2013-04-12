@@ -42,6 +42,7 @@ class NewItemForm(Form):
     title = wtforms.TextField('Item Title', [wtforms.validators.length(max=255)])
     content = wtforms.TextAreaField('Content', [wtforms.validators.Required()])
     post_type = wtforms.RadioField('Type', choices=post_types, default="misc") 
+    posted = wtforms.DateTimeField('Posted', default=datetime.now())
 
 
 class LoginForm(Form):

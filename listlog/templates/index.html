@@ -1,12 +1,10 @@
 {% extends "base.html" %}
+{% set active_page = 'index' -%}
 
 {% block content %}
 
-    <div class="pull-right"><a href="/post" class="btn">New Post</a></div>
-    <div class="pull-right"><a href="/login" class="btn">Log in</a></div>
-    <div class="pull-right"><a href="/logout" class="btn">Log out</a></div>
     {% for item in items %}
-        <hr />
+    <div class="post">
         <h2>{{ item.title }}</h2>
         <code class="timeago" timestamp="{{ item.posted }}" title="{{ item.posted }}">{{ item.posted|relative_date }}</code><br />
         <p>{{ item.content|markdown }}</p>
@@ -18,13 +16,14 @@
                 {% endfor %}
             {% endif %}
         </p>
+    </div>
     {% else %}
         Nothing here&hellip;
     {% endfor %}
 
     {# Pagination #}
     {% if number_of_pages and number_of_pages > 1 %}
-    <div class="pagination">
+    <nav class="pagination pagination-centered">
         <ul>
             <li{% if page_number == 1 %} class="disabled"{% endif %}><a href="/page/1">&laquo;</a></li>
 
@@ -34,8 +33,14 @@
 
             <li{% if page_number == number_of_pages %} class="disabled"{% endif %}><a href="/page/{{ number_of_pages }}">&raquo;</a></li>
         </ul>
-    </div>
+    </nav>
     {% endif %}
+
+{% endblock %}
+
+{% block pagination %}
+
+
 
 {% endblock %}
 
@@ -57,5 +62,11 @@ $(document).ready(function() {
         $(this).timeago();
     });
 
+  $('#content').infinitescroll({
+    debug: true,
+        navSelector  : "nav.pagination ul li a",
+        nextSelector : "nav.pagination ul li.active + li a",
+        itemSelector : "div.post",
+  });
 });
 {% endblock %}
