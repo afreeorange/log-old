@@ -9,7 +9,7 @@
         <code class="timeago" timestamp="{{ item.posted }}" title="{{ item.posted }}">{{ item.posted|relative_date }}</code><br />
         <p>{{ item.content|markdown }}</p>
         <p>
-            <small class="label label-inverse">{{ item.post_type|expand_post_type }}</small>
+            <a href="/type/{{ item.post_type }}" class="label label-inverse">{{ item.post_type|expand_post_type }}</a>
             {% if item.tags is defined %}
                 {% for tag in item.tags %}
                     <a href="/tag/{{ tag }}" class="label">#{{ tag }}</a>

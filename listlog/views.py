@@ -3,14 +3,23 @@ import ast
 from math import ceil
 from datetime import datetime
 
-from flask import Flask, render_template, send_from_directory, flash, request, redirect, url_for
+from flask import Flask, render_template, send_from_directory, flash, request, redirect, url_for, abort
 from listlog import app, db
 from models import Item, ItemForm, NewItemForm
 from helpers import *
 from flask.ext.login import login_required, current_user
 
 items_per_page = app.config['ITEMS_PER_PAGE']
+post_types = app.config['POST_TYPES']
 
+
+@app.route('/type/<string:post_type>')
+def search_by_type(post_type=None):
+    if post_type in [ short_type for short_type, long_type in post_types]:
+        return render_template("index.html", items=Item.objects(post_type__exact = post_type))
+    else:
+        abort(404)
+    
 
 @app.route('/tag/<tagname>')
 @app.route('/tags/<tagname>')
