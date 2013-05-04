@@ -1,16 +1,41 @@
 import os
 import ast
+import json
+
 from math import ceil
 from datetime import datetime
 
-from flask import Flask, render_template, send_from_directory, flash, request, redirect, url_for, abort
+from flask import Flask, render_template, send_from_directory, flash, request, redirect, url_for, abort, jsonify, Response
 from listlog import app, db
 from models import Item, ItemForm, NewItemForm
 from helpers import *
 from flask.ext.login import login_required, current_user
+from urlparse import urljoin
+from werkzeug.contrib.atom import AtomFeed
 
 items_per_page = app.config['ITEMS_PER_PAGE']
 post_types = app.config['POST_TYPES']
+log_title = app.config['TITLE']
+items_in_feed = app.config['ITEMS_IN_NEWSFEED']
+author = app.config['AUTHOR']
+year = app.config['CURRENT_YEAR']
+
+
+# http://flask.pocoo.org/snippets/10/
+# Validated using http://feedvalidator.org/docs/howto/install_and_run.html
+@app.route('/feed')
+def feed_atom():
+    feed = AtomFeed(log_title, feed_url=request.url, url=request.url_root)
+    items = Item.objects[0:items_in_feed].order_by('-posted')
+    for item in items:
+        feed.add(item.title, 
+                 unicode(item.content),
+                 content_type='html',
+                 published=item.posted,
+                 updated=item.posted,
+                 author=author,
+                 id="tag:" + log_title + "," + year + ":/" + str(item.id) + "/")
+    return feed.get_response()
 
 
 @app.route('/type/<string:post_type>')
@@ -79,7 +104,7 @@ def index(page_number=1):
 
 @app.route('/favicon.ico')
 def favicon():
-    """ Send the favicon. Static, so should be handled by server in production.
+    """ Send the favicon.
     """
     return send_from_directory(os.path.join(app.root_path, 'static/img'),
                                'favicon.ico',
