@@ -1,3 +1,5 @@
+TITLE= "listlog"
+AUTHOR="Nikhil Anand"
 DEBUG = True
 MONGODB_SETTINGS = {'DB': "listlog", 'PORT': 27017}
 SECRET_KEY = "MOobPQgBMHkIuanurC+NjVq08M+U9f7o"
@@ -20,3 +22,4 @@ USERS = {
 		'name': 'Rufus'
 	}
 }
+ITEMS_IN_NEWSFEED = 15
