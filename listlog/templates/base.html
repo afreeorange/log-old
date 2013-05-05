@@ -53,17 +53,21 @@
             {% else %}
                 {{ menu_item('login', '/login', 'Log in') }}
             {% endif %}
+
+            <a href="/feed" class="btn btn-small btn-warning pull-right">Atom</a>
         </ul>
 
         <div id="content">{% block content %}{% endblock %}</div>
 
         <hr />
 
-        <h6>&copy; {{ config.CURRENT_YEAR }}
+        <footer>
+            &copy; {{ config.CURRENT_YEAR }}
             {% if self.footer() %}
                 {% block footer %}{% endblock %}
             {% endif %}
-        </h6>
+            {{ config.COPYRIGHT_MESSAGE|safe }}
+        </footer>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>')</script>
@@ -78,5 +82,3 @@
         </script>
     </body>
 </html>
-
-

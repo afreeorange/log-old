@@ -10,16 +10,35 @@ POST_TYPES = [('video', 'Video'),
               ('quote', 'Quote'), 
               ('chat', 'Chat'), 
               ('misc', 'Misc')]
-INFINITE_SCROLL = True
+INFINITE_SCROLL = False
 ITEMS_PER_PAGE = 5
-USERS = {
-	'admin': {
-		'password': 'pass',
-		'name': 'Nikhil'
-	},
-	'anotheradmin': {
-		'password': 'pass2',
-		'name': 'Rufus'
-	}
-}
 ITEMS_IN_NEWSFEED = 15
+USERS = {
+    'admin': {
+        'password': 'pass',
+        'name': 'Nikhil'
+    },
+    'anotheradmin': {
+        'password': 'pass2',
+        'name': 'Rufus'
+    }
+}
+COPYRIGHT_MESSAGE = """
+<p>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US">
+    This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US">Creative Commons Attribution-NonCommercial 3.0 Unported License
+  </a>.
+</p>
+"""
+ERROR_MESSAGES = {
+    "404": """
+            <h1>I'm sorry, Dave</h1>
+            <br />
+            <h2>I couldn't find that :(</h2>
+           """,
+    "500": """
+            <h1>Whoops&hellip;</h1>
+            <br />
+            <h2>It's not you, it's me</h2>
+           """
+}

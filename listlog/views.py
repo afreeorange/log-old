@@ -12,6 +12,8 @@ from helpers import *
 from flask.ext.login import login_required, current_user
 from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
+from mongoengine import ValidationError
+
 
 items_per_page = app.config['ITEMS_PER_PAGE']
 post_types = app.config['POST_TYPES']
@@ -19,6 +21,16 @@ log_title = app.config['TITLE']
 items_in_feed = app.config['ITEMS_IN_NEWSFEED']
 author = app.config['AUTHOR']
 year = app.config['CURRENT_YEAR']
+
+
+@app.errorhandler(404)
+def error_not_found(e):
+    return render_template('error.html', code=404), 404
+
+
+@app.errorhandler(500)
+def error_server(e):
+    return render_template('error.html', code=500), 500
 
 
 # http://flask.pocoo.org/snippets/10/
@@ -35,7 +47,7 @@ def feed_atom():
                  updated=item.posted,
                  author=author,
                  id="tag:" + log_title + "," + year + ":/" + str(item.id) + "/")
-    return feed.get_response()
+    return feed
 
 
 @app.route('/type/<string:post_type>')
@@ -75,6 +87,20 @@ def form_post():
         flash('Saved item', 'success')
         return redirect(url_for("index")) # There's a reason why this is used instead of "/"
     return render_template("forms/post.html", form=form)
+
+
+@app.route('/item/<string:post_id>')
+def item(post_id):
+    try:
+        item = Item.objects.get(id__exact = post_id)   
+    except Item.DoesNotExist, e:
+        abort(404)
+    except Item.MultipleObjectsReturned, e:
+        abort(500)
+    except ValidationError, e:
+        abort(500)
+    else:
+        return render_template("item.html", item=Item.objects.get(id__exact = post_id))
 
 
 @app.route('/page/<int:page_number>')

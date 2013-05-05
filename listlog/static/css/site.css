@@ -1,12 +1,45 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+html,body {
+font-family:lato;
+}
+
 #scroll-up {
 display:none;
 position:fixed;
 right:20px;
-top:20px;
+top:100px;
 }
 a.label:hover {
 background:#FF3300;
 }
 .timeago {
 cursor:pointer;
+}
+
+/* List of tags */
+.tags a {
+color:#999;
+font-weight: bold;
+font-size: small;
+margin:0 5px;
+}
+.tags a:hover {
+color:#333;
+text-decoration: none;
+}
+
+/* For 404 and 500 pages 
+   Lifted from https://github.com/twitter/bootstrap/blob/master/docs/index.html#L81
+*/
+.jumbotron {
+position: relative;
+padding: 40px 0;
+color: red;
+text-align: center;
+}
+.jumbotron h1 {
+font-size: 80px;
+font-weight: bold;
+letter-spacing: -1px;
+line-height: 1;
 }

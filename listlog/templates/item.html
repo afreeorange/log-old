@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ item.title }}</h2>
+    <p><strong>{{ item.posted|relative_date }}, on</strong> <code class="timeago" timestamp="{{ item.posted }}">{{ item.posted }}</code></p>
+    <div id="content">
+        {{ item.content|markdown }}
+    </div>
+{% endblock %}

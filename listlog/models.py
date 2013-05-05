@@ -67,3 +67,7 @@ class User():
 
     def get_id(self):
         return self.id
+
+class input_filter():
+    def __init__(self, arg):
+        self.arg = arg

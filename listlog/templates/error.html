@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="jumbotron">
+		{{ code|get_error_message|safe }}
+	</div>
+{% endblock %}

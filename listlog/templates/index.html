@@ -5,18 +5,21 @@
 
     {% for item in items %}
     <div class="post">
-        <h2>{{ item.title }}</h2>
-        <code class="timeago" timestamp="{{ item.posted }}" title="{{ item.posted }}">{{ item.posted|relative_date }}</code><br />
+        <h3><a href="/item/{{ item.id }}">{{ item.title }}</a></h3>
+        <p><strong class="timeago" title="{{ item.posted }}">{{ item.posted|relative_date }}</strong>, on <code>{{ item.posted }}</code></p>
         <p>{{ item.content|markdown }}</p>
         <p>
             <a href="/type/{{ item.post_type }}" class="label label-inverse">{{ item.post_type|expand_post_type }}</a>
             {% if item.tags is defined %}
+            <span class="tags">
                 {% for tag in item.tags %}
-                    <a href="/tag/{{ tag }}" class="label">#{{ tag }}</a>
+                    <a href="/tag/{{ tag }}">#{{ tag }}</a>
                 {% endfor %}
+            </span>
             {% endif %}
         </p>
     </div>
+    <hr />
     {% else %}
         Nothing here&hellip;
     {% endfor %}
@@ -49,12 +52,6 @@ $(document).ready(function() {
 
     // Automagically update the timestamp
     $('.timeago').timeago();
-
-    $('.timeago').mouseover(function(){
-        $(this).text($(this).attr("timestamp"));
-    }).mouseout(function(){
-        $(this).timeago();
-    });
 
     {% if config.INFINITE_SCROLL %}
     $('#content').infinitescroll({

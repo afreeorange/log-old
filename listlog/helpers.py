@@ -1,7 +1,14 @@
 from datetime import datetime
 import lxml.html
 from listlog import app
+
 list_of_post_types = app.config['POST_TYPES']
+error_messages = app.config['ERROR_MESSAGES']
+
+
+@app.template_filter('get_error_message')
+def get_error_message(code=404):
+    return error_messages[str(code)]
 
 
 @app.template_filter('relative_date')
