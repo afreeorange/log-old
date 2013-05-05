@@ -14,14 +14,12 @@ from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 from mongoengine import ValidationError
 
-
 items_per_page = app.config['ITEMS_PER_PAGE']
 post_types = app.config['POST_TYPES']
 log_title = app.config['TITLE']
 items_in_feed = app.config['ITEMS_IN_NEWSFEED']
 author = app.config['AUTHOR']
 year = app.config['CURRENT_YEAR']
-
 
 @app.errorhandler(404)
 def error_not_found(e):
@@ -47,7 +45,7 @@ def feed_atom():
                  updated=item.posted,
                  author=author,
                  id="tag:" + log_title + "," + year + ":/" + str(item.id) + "/")
-    return feed
+    return feed.get_response()
 
 
 @app.route('/type/<string:post_type>')
