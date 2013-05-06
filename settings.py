@@ -1,4 +1,4 @@
-TITLE= "listlog"
+TITLE= "Log"
 AUTHOR="Nikhil Anand"
 DEBUG = True
 MONGODB_SETTINGS = {'DB': "listlog", 'PORT': 27017}

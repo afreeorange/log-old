@@ -1,6 +1,6 @@
 {# http://jinja.pocoo.org/docs/templates/#macros #}
-{% macro menu_item(stub, link, name) -%}
-    <li{% if active_page == stub %} class="active"{% endif %}><a href="{{ link }}">{{ name }}</a></li>
+{% macro menu_item(name, link, class) -%}
+    <a href="{{ link }}" class="btn btn-small btn-{{ class }}">{{ name }}</a>
 {%- endmacro %}
 
 <!DOCTYPE html>
@@ -30,7 +30,20 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade it for a better web experience</a>.</p>
         <![endif]-->
 
-        <h1><a href="/">ListLog</a></h1>
+        <div class="row">
+            <h1 class="span4">
+                <a href="/" title="{{ config.TITLE }} - Home">{{ config.TITLE }}</a>
+            </h1>
+            <div class="span4 offset4 navigation">
+                {{ menu_item('Feed', '/feed', 'warning') }}
+                {% if current_user.is_authenticated() %}
+                    {{ menu_item('Post', '/post', 'success') }}
+                    {{ menu_item('Log out', '/logout', 'danger') }}
+                {% else %}
+                    {{ menu_item('Log in', '/login', 'danger') }}
+                {% endif %}
+            </div>
+        </div>
 
         <div id="scroll-up"><a class="btn btn-danger" href="#">Up</a></div>
 
@@ -42,20 +55,6 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-
-        {# http://jinja.pocoo.org/docs/tricks/#highlighting-active-menu-items #}
-        <ul class="nav nav-tabs">
-            {{ menu_item('index', '/', 'Home') }}
-
-            {% if current_user.is_authenticated() %}
-                {{ menu_item('post', '/post', 'Post') }}
-                <li><a href="/logout">Log out</a></li>
-            {% else %}
-                {{ menu_item('login', '/login', 'Log in') }}
-            {% endif %}
-
-            <a href="/feed" class="btn btn-small btn-warning pull-right">Atom</a>
-        </ul>
 
         <div id="content">{% block content %}{% endblock %}</div>
 

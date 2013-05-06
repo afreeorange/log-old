@@ -3,17 +3,29 @@ html,body {
 font-family:lato;
 }
 
+.posted {
+color: #999;
+}
+.posted code {
+border:0;
+background: none;
+color: #999;
+padding:0;
+}
+
 #scroll-up {
 display:none;
 position:fixed;
 right:20px;
-top:100px;
-}
-a.label:hover {
-background:#FF3300;
+top:20px;
 }
 .timeago {
 cursor:pointer;
+}
+
+.navigation {
+margin-top:10px;
+text-align:right;
 }
 
 /* List of tags */
@@ -21,7 +33,7 @@ cursor:pointer;
 color:#999;
 font-weight: bold;
 font-size: small;
-margin:0 5px;
+margin:0 5px 0 0;
 }
 .tags a:hover {
 color:#333;

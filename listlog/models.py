@@ -19,6 +19,7 @@ class Item(Document):
     title = StringField(required=False, max_length=255)
     content = StringField(required=True)
     posted = DateTimeField(required=True, default=datetime.now())
+    updated = DateTimeField(required=True, default=datetime.now())
     post_type = StringField(required=True, choices=post_types,
                               default='misc')
     tags = ListField(StringField(max_length=30))

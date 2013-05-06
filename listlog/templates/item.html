@@ -1,9 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ item.title }}</h2>
-    <p><strong>{{ item.posted|relative_date }}, on</strong> <code class="timeago" timestamp="{{ item.posted }}">{{ item.posted }}</code></p>
+    <h3>{{ item.title }}</h3>
+    <p class="posted"><strong class="timeago" title="{{ item.posted }}">{{ item.posted|relative_date }}</strong>, on <code>{{ item.posted }}</code></p>
     <div id="content">
         {{ item.content|markdown }}
     </div>
+
+    {% if item.tags|length > 1 %}
+    <span class="tags">
+        {% for tag in item.tags %}
+            <a href="/tag/{{ tag }}">#{{ tag }}</a>
+        {% endfor %}
+    </span>
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+$(document).ready(function() {
+    // Automagically update the timestamp
+    $('.timeago').timeago();
+});
 {% endblock %}
