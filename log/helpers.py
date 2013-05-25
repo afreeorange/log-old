@@ -1,6 +1,6 @@
 from datetime import datetime
 import lxml.html
-from listlog import app
+from log import app
 
 list_of_post_types = app.config['POST_TYPES']
 error_messages = app.config['ERROR_MESSAGES']

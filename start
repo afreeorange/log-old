@@ -5,7 +5,7 @@ import sys
 import logging
 
 from lockfile.pidlockfile import PIDLockFile
-from listlog import app
+from log import app
 
 HOST="0.0.0.0"
 PORT=8005
@@ -13,7 +13,9 @@ PORT=8005
 # Run flask or gunicorn depending on options
 # Default is gunicorn
 if len(sys.argv) == 2 and sys.argv[1] == "flask":
-    from listlog import app
+    from log import app
     app.run(host = HOST, debug = True, port = PORT)
 else:
-    os.system("gunicorn -w 3 -b 0.0.0.0:" + str(PORT) + " listlog:app --daemon --access-logfile ./logs/access_log --error-log ./logs/error_log --debug --pid ./daemon.pid")
+    os.system("gunicorn -w 3 -b 0.0.0.0:" + str(PORT) + " log:app --daemon --access-logfile ./logs/access_log --error-log ./logs/error_log --debug --pid ./daemon.pid")
+
+

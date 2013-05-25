@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from listlog import app
+from log import app
 from mongoengine import Document, StringField, DateTimeField, ListField
 from flask.ext.mongoengine.wtf import model_form
 

@@ -6,7 +6,7 @@ from math import ceil
 from datetime import datetime
 
 from flask import Flask, render_template, send_from_directory, flash, request, redirect, url_for, abort, jsonify, Response
-from listlog import app, db
+from log import app, db
 from models import Item, ItemForm, NewItemForm
 from helpers import *
 from flask.ext.login import login_required, current_user

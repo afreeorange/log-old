@@ -1,7 +1,7 @@
 TITLE= "Log"
 AUTHOR="Nikhil Anand"
 DEBUG = True
-MONGODB_SETTINGS = {'DB': "listlog", 'PORT': 27017}
+MONGODB_SETTINGS = {'DB': "log", 'PORT': 27017}
 SECRET_KEY = "MOobPQgBMHkIuanurC+NjVq08M+U9f7o"
 POST_TYPES = [('video', 'Video'), 
               ('music', 'Music'), 
